@@ -16,7 +16,7 @@ const PokeContainer = ({location}) => {
 			const json = await response.json()
 			const pokemons = json.pokemon.map(pokemon => ({ ...pokemon.pokemon, catched: collection.includes(pokemon.pokemon.name)})).sort((a,b) => a.name < b.name ? -1 : 1)
 			setPokemons(pokemons)
-			setFiltered(pokemons);
+			setFiltered(pokemons)
 		}
 		fetchData();
 	}, [collection, location.state.url]);
@@ -25,11 +25,6 @@ const PokeContainer = ({location}) => {
 		const results = filtered.filter(pokemon => pokemon.name.includes(filter.toLowerCase()))
 		setPokemons(results)
 	}, [filter, filtered])
-
-	useEffect(()=>{
-		const results = catchedOnly ? filtered.filter(pokemon => pokemon.catched) : filtered
-		setPokemons(results)
-	}, [catchedOnly, filtered])
 
 	const onSearchChange = (e) => {
 		console.log(e.target.value);
@@ -51,22 +46,25 @@ const PokeContainer = ({location}) => {
 		</div>
 		<div className="PokeContainer">
 				{pokemons.map(pokemon => {
-					return (
-						<Link 
-							className={`PokeContainer-link ${pokemon.catched && "catched"}`}
-							key={pokemon.name}
-							exact={true}
-							to={{
-								pathname: `/pokemon/${pokemon.name}`,
-								state: {
-									url: pokemon.url,
-									catched: pokemon.catched
-								}
-							}}
-						>
-							{pokemon.name}
-						</Link>
-			)
+					if (catchedOnly && !pokemon.catched) {
+						return null
+					} else {
+						return (
+							<Link 
+								className={`PokeContainer-link ${pokemon.catched && "catched"}`}
+								key={pokemon.name}
+								exact={true}
+								to={{
+									pathname: `/pokemon/${pokemon.name}`,
+									state: {
+										url: pokemon.url,
+										catched: pokemon.catched
+									}
+								}}
+							>
+								{pokemon.name}
+							</Link>
+						)}
 				})}
 		</div>
 		</>
