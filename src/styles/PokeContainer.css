@@ -8,11 +8,15 @@
 }
 
 .PokeContainer-link {
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 1em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
 	text-align: center;
+}
+
+.PokeContainer-link.catched {
+	background-color: lightcoral;
 }

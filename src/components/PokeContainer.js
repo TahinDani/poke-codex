@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom'
+import {CollectionContext} from '../contexts/CollectionContext'
 import '../styles/PokeContainer.css'
 
 const PokeContainer = ({location}) => {
+	const {collection} = useContext(CollectionContext)
 	const [pokemons, setPokemons] = useState([])
 	const [filtered, setFiltered] = useState([])
 	const [filter, setFilter] = useState("")
+	const [catchedOnly, setCatchedOnly] = useState(false)
 
 	useEffect(() => {
 		async function fetchData() {
 			const response = await fetch(location.state.url)
 			const json = await response.json()
-			const pokemons = json.pokemon.map(pokemon => pokemon.pokemon).sort((a,b) => a.name < b.name ? -1 : 1)
+			const pokemons = json.pokemon.map(pokemon => ({ ...pokemon.pokemon, catched: collection.includes(pokemon.pokemon.name)})).sort((a,b) => a.name < b.name ? -1 : 1)
 			setPokemons(pokemons)
 			setFiltered(pokemons);
 		}
 		fetchData();
-	}, [location.state.url]);
+	}, [collection, location.state.url]);
 
 	useEffect(()=>{
 		const results = filtered.filter(pokemon => pokemon.name.includes(filter.toLowerCase()))
 		setPokemons(results)
 	}, [filter, filtered])
 
+	useEffect(()=>{
+		const results = catchedOnly ? filtered.filter(pokemon => pokemon.catched) : filtered
+		setPokemons(results)
+	}, [catchedOnly, filtered])
+
 	const onSearchChange = (e) => {
 		console.log(e.target.value);
 		setFilter(e.target.value)
+	}
+
+	const changeDisplay = () => {
+		setCatchedOnly(!catchedOnly)
 	}
 
 	return (
@@ -33,17 +45,22 @@ const PokeContainer = ({location}) => {
 		<div className="search">
 			<input type="text" value={filter} onChange={onSearchChange}></input>
 		</div>
+		<div className="show_catched">
+			<input type="checkbox" id="showCatched" name="showCatched" value={catchedOnly} onChange={changeDisplay}></input>
+			<label htmlFor="showCatched">List only catched pokemons</label>
+		</div>
 		<div className="PokeContainer">
 				{pokemons.map(pokemon => {
 					return (
 						<Link 
-							className="PokeContainer-link"
+							className={`PokeContainer-link ${pokemon.catched && "catched"}`}
 							key={pokemon.name}
 							exact={true}
 							to={{
 								pathname: `/pokemon/${pokemon.name}`,
 								state: {
-									url: pokemon.url
+									url: pokemon.url,
+									catched: pokemon.catched
 								}
 							}}
 						>

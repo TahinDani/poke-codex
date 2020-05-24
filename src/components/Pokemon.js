@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import {CollectionContext} from '../contexts/CollectionContext'
+import '../styles/Pokemon.css'
 
 const Pokemon = ({location}) => {
+	const { releaseOrCatch} = useContext(CollectionContext)
 	const [pokemon, setPokemon] = useState({})
+	const [catched, setCatched] = useState(location.state.catched)
 
 	useEffect(() => {
 		async function fetchData() {
@@ -12,9 +16,23 @@ const Pokemon = ({location}) => {
 		fetchData();
 	}, [location.state.url]);
 
+	const imageUrl = pokemon.sprites?.front_default
+	const handleClick = () => {
+		setCatched(!catched)
+		releaseOrCatch(pokemon.name)
+	}
+
 	return (
-		<div>
-			<h2>{pokemon.name}</h2>
+		<div className="Pokemon">
+			<h2 className="Pokemon-name">{pokemon.name}</h2>
+			{imageUrl ? <img className="Pokemon-image" src={imageUrl} alt=""/> : "no image"}
+			<p className="Pokemon-data">Weight: {pokemon.weight}</p>
+			<p className="Pokemon-data">Height: {pokemon.height}</p>
+			<p className="Pokemon-data">Not hidden abilities:</p>
+			<ul className="Pokemon-abilities">
+				{pokemon.abilities?.map(ability => !ability.is_hidden && <li key={ability.ability.name}>{ability.ability.name}</li>)}
+			</ul>
+			<div className="Pokemon-button" onClick={handleClick}>{catched ? "Release" : "Catch"}</div>
 		</div>
 	);
 };

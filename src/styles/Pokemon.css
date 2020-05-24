@@ -1,0 +1,6 @@
+.Pokemon-button {
+	padding: .5em;
+	border: 1px solid black;
+	display: inline-block;
+	cursor: pointer;
+}

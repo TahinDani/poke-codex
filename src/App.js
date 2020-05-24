@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import TypeContainer from './components/TypesContainer'
 import PokeContainer from './components/PokeContainer'
 import Pokemon from './components/Pokemon'
+import {CollectionProvider} from './contexts/CollectionContext'
 import './App.css';
 
 function App() {
@@ -20,11 +21,13 @@ function App() {
 
 	return (
 		<div className="App">
+			<CollectionProvider>
 			<Switch>
 				<Route exact path="/" render={() => <TypeContainer types={types}/> }/>
 				<Route exact path='/type/:id' render={(routeProps) => <PokeContainer {...routeProps}/>} />
 				<Route exact path='/pokemon/:id' render={(routeProps) => <Pokemon {...routeProps}/>} />
 			</Switch>
+			</CollectionProvider>
 		</div>
 	);
 }
