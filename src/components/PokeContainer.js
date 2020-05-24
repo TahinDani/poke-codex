@@ -4,6 +4,7 @@ import '../styles/PokeContainer.css'
 
 const PokeContainer = ({location}) => {
 	const [pokemons, setPokemons] = useState([])
+	const [filtered, setFiltered] = useState([])
 	const [filter, setFilter] = useState("")
 
 	useEffect(() => {
@@ -12,9 +13,15 @@ const PokeContainer = ({location}) => {
 			const json = await response.json()
 			const pokemons = json.pokemon.map(pokemon => pokemon.pokemon).sort((a,b) => a.name < b.name ? -1 : 1)
 			setPokemons(pokemons)
+			setFiltered(pokemons);
 		}
 		fetchData();
 	}, [location.state.url]);
+
+	useEffect(()=>{
+		const results = filtered.filter(pokemon => pokemon.name.includes(filter.toLowerCase()))
+		setPokemons(results)
+	}, [filter, filtered])
 
 	const onSearchChange = (e) => {
 		console.log(e.target.value);
