@@ -1,6 +1,8 @@
 import React, {useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import TypeContainer from './components/TypesContainer'
+import PokeContainer from './components/PokeContainer'
+import Pokemon from './components/Pokemon'
 import './App.css';
 
 function App() {
@@ -19,8 +21,9 @@ function App() {
 	return (
 		<div className="App">
 			<Switch>
-				<Route exact path="/" render={(routeProps) => <TypeContainer types={types}/> }/>
-				<Route exact path='/type/:id' render={()=>"This is a type"} />
+				<Route exact path="/" render={() => <TypeContainer types={types}/> }/>
+				<Route exact path='/type/:id' render={(routeProps) => <PokeContainer {...routeProps}/>} />
+				<Route exact path='/pokemon/:id' render={(routeProps) => <Pokemon {...routeProps}/>} />
 			</Switch>
 		</div>
 	);

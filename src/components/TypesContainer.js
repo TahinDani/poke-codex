@@ -11,7 +11,12 @@ const TypesContainer = ({types}) => {
 							className="TypesContainer-link"
 							key={type.name}
 							exact={true}
-							to={`/type/${type.name}`}
+							to={{
+								pathname: `/type/${type.name}`,
+								state: {
+									url: type.url
+								}
+							}}
 						>
 							{type.name}
 						</Link>
