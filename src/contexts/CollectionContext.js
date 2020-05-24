@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const CollectionContext = createContext()
 
 export const CollectionProvider = (props) => {
-	const [collection, setCollection] = useState(window.localStorage.getItem("collection") || [])
+	const [collection, setCollection] = useState(window.localStorage.getItem("collection")?.split(",") || [])
 
 	const releaseOrCatch = (name) => {
 		if (!collection.includes(name)) {
@@ -14,7 +14,7 @@ export const CollectionProvider = (props) => {
 	}
 
 	useEffect(() => {
-		console.log(collection)
+		//console.log(collection)
 		window.localStorage.setItem("collection", collection)
 	}, [collection])
 
