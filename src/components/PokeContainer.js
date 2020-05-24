@@ -36,13 +36,15 @@ const PokeContainer = ({location, history}) => {
 
 	return (
 		<div className="PokeContainer">
-			<div className="PokeContainer-back" onClick={() => history.goBack()}>Back</div>
-			<div className="PokeContainer-search">
-				<input type="text" value={filter} onChange={onSearchChange}></input>
-			</div>
-			<div className="PokeContainer-show_catched">
-				<input type="checkbox" id="showCatched" name="showCatched" value={catchedOnly} onChange={changeDisplay}></input>
-				<label htmlFor="showCatched">List only catched pokemons</label>
+			<div className="PokeContainer-header">
+				<div className="PokeContainer-back" onClick={() => history.goBack()}>Back</div>
+				<div className="PokeContainer-search">
+					<input type="text" value={filter} onChange={onSearchChange}></input>
+				</div>
+				<div className="PokeContainer-show_catched">
+					<input type="checkbox" id="showCatched" name="showCatched" value={catchedOnly} onChange={changeDisplay}></input>
+					<label htmlFor="showCatched">List only catched pokemons</label>
+				</div>
 			</div>
 			<div className="PokeContainer-cards">
 				{pokemons.map(pokemon => {

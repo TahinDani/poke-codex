@@ -1,6 +1,47 @@
+.loading {
+	text-align: center;
+	margin-top: 3em;
+}
+
+.loading img {
+	width: 48px;
+	animation: rotate .8s ease-in-out infinite;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg)
+	}
+}
+
+.Pokemon {
+	font-size: 1.3rem;
+	text-align: center;
+	margin-top: 3em;
+}
+
 .Pokemon-button {
-	padding: .5em;
+	padding: .5em 1em;
 	border: 1px solid black;
+	border-radius: 3px;
 	display: inline-block;
 	cursor: pointer;
+	background: white;
+}
+
+.Pokemon-back {
+	cursor: pointer;
+	border: 1px solid black;
+	border-radius: 3px;
+	padding: 0 .5em;
+	display: inline-block;
+	background: white;
+}
+
+.Pokemon-abilities {
+	list-style: none;
+	padding: 0;
 }

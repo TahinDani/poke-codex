@@ -1,17 +1,26 @@
 .TypesContainer {
 	display: grid;
-	grid-gap: 5px;
+	grid-gap: .8em;
 	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 	grid-auto-rows: 100px;
 	width: min(70%, 800px);
-	margin: 2em auto;
+	margin: 5em auto;
 }
 
 .TypesContainer-link {
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 1em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 1.4rem;
+	transition: transform .1s;
+	background: white;
+}
+
+.TypesContainer-link:hover {
+	transform: rotate(4deg) translate3d(5px, -5px, 0);
+	transition: transform .1s;
 }
