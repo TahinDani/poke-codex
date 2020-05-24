@@ -10,7 +10,7 @@ const TypesContainer = ({types}) => {
 						<Link 
 							className="TypesContainer-link"
 							key={type.name}
-							exact={true}
+							exact="true"
 							to={{
 								pathname: `/type/${type.name}`,
 								state: {

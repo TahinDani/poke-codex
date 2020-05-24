@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom'
 import {CollectionContext} from '../contexts/CollectionContext'
 import '../styles/Pokemon.css'
 
-const Pokemon = ({location}) => {
+const Pokemon = ({location, history}) => {
 	const { releaseOrCatch} = useContext(CollectionContext)
 	const [pokemon, setPokemon] = useState({})
 	const [catched, setCatched] = useState(location.state.catched)
@@ -24,6 +25,9 @@ const Pokemon = ({location}) => {
 
 	return (
 		<div className="Pokemon">
+			<div className="Pokemon-back" onClick={() => history.goBack()}>
+				Back
+			</div>
 			<h2 className="Pokemon-name">{pokemon.name}</h2>
 			{imageUrl ? <img className="Pokemon-image" src={imageUrl} alt=""/> : "no image"}
 			<p className="Pokemon-data">Weight: {pokemon.weight}</p>

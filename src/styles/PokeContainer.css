@@ -1,10 +1,13 @@
 .PokeContainer {
+	width: min(70%, 800px);
+	margin: 2em auto;
+}
+
+.PokeContainer-cards {
 	display: grid;
 	grid-gap: 5px;
 	grid-template-columns: repeat(auto-fit, 100px);
 	grid-auto-rows: 100px;
-	width: min(70%, 800px);
-	margin: 2em auto;
 }
 
 .PokeContainer-link {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom'
-import TypeContainer from './components/TypesContainer'
+import TypesContainer from './components/TypesContainer'
 import PokeContainer from './components/PokeContainer'
 import Pokemon from './components/Pokemon'
 import {CollectionProvider} from './contexts/CollectionContext'
@@ -22,11 +22,12 @@ function App() {
 	return (
 		<div className="App">
 			<CollectionProvider>
-			<Switch>
-				<Route exact path="/" render={() => <TypeContainer types={types}/> }/>
-				<Route exact path='/type/:id' render={(routeProps) => <PokeContainer {...routeProps}/>} />
-				<Route exact path='/pokemon/:id' render={(routeProps) => <Pokemon {...routeProps}/>} />
-			</Switch>
+				<Switch>
+					<Route exact path="/" render={() => <TypesContainer types={types}/> }/>
+					<Route exact path="/type/:id" render={(routeProps) => <PokeContainer {...routeProps}/>} />
+					<Route exact path="/pokemon/:id" render={(routeProps) => <Pokemon {...routeProps}/>} />
+					<Route render={()=>"No match"} />
+				</Switch>
 			</CollectionProvider>
 		</div>
 	);

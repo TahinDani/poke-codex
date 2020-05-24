@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {CollectionContext} from '../contexts/CollectionContext'
 import '../styles/PokeContainer.css'
 
-const PokeContainer = ({location}) => {
+const PokeContainer = ({location, history}) => {
 	const {collection} = useContext(CollectionContext)
 	const [pokemons, setPokemons] = useState([])
 	const [filtered, setFiltered] = useState([])
@@ -27,7 +27,6 @@ const PokeContainer = ({location}) => {
 	}, [filter, filtered])
 
 	const onSearchChange = (e) => {
-		console.log(e.target.value);
 		setFilter(e.target.value)
 	}
 
@@ -36,15 +35,16 @@ const PokeContainer = ({location}) => {
 	}
 
 	return (
-		<>
-		<div className="search">
-			<input type="text" value={filter} onChange={onSearchChange}></input>
-		</div>
-		<div className="show_catched">
-			<input type="checkbox" id="showCatched" name="showCatched" value={catchedOnly} onChange={changeDisplay}></input>
-			<label htmlFor="showCatched">List only catched pokemons</label>
-		</div>
 		<div className="PokeContainer">
+			<div className="PokeContainer-back" onClick={() => history.goBack()}>Back</div>
+			<div className="PokeContainer-search">
+				<input type="text" value={filter} onChange={onSearchChange}></input>
+			</div>
+			<div className="PokeContainer-show_catched">
+				<input type="checkbox" id="showCatched" name="showCatched" value={catchedOnly} onChange={changeDisplay}></input>
+				<label htmlFor="showCatched">List only catched pokemons</label>
+			</div>
+			<div className="PokeContainer-cards">
 				{pokemons.map(pokemon => {
 					if (catchedOnly && !pokemon.catched) {
 						return null
@@ -53,7 +53,7 @@ const PokeContainer = ({location}) => {
 							<Link 
 								className={`PokeContainer-link ${pokemon.catched && "catched"}`}
 								key={pokemon.name}
-								exact={true}
+								exact="true"
 								to={{
 									pathname: `/pokemon/${pokemon.name}`,
 									state: {
@@ -66,8 +66,8 @@ const PokeContainer = ({location}) => {
 							</Link>
 						)}
 				})}
+			</div>
 		</div>
-		</>
 	);
 };
 
